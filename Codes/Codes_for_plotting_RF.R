@@ -19,13 +19,13 @@ training_indices <- sample(nrow(data_subset_evergreen), nrow(data_subset_evergre
 training_data_evergreen <- data_subset_evergreen[training_indices, ]
 testing_data_evergreen <- data_subset_evergreen[-training_indices, ]
 
-RF_evergreen_training_result <- ranger(data = training_data_evergreen, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, write.forest = T)
+RF_evergreen_training_result <- ranger(data = training_data_evergreen, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, write.forest = T)
 RF_evergreen_predict_result <- predict(RF_evergreen_training_result, testing_data_evergreen[,-1])
 
 # evaluate accuracy, in this example, R is used. We can also use other metrics to estimate the regression accuracy.
 R_evergreen <- cor(testing_data_evergreen$vulner, RF_evergreen_predict_result$predictions)
 
-RF_evergreen_result <- ranger(data = data_subset_evergreen, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_evergreen_result <- ranger(data = data_subset_evergreen, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                                        write.forest = T)
 pd_evergreen <- partial_dependence(fit = RF_evergreen_result, vars = c('CO2', 'pre_summer', 'tmp_summer', 
      'rad_summer', 'VPD_summer', 'SOS', 'kNDVI_spring', 'biodiv','AI'), data = data_subset_evergreen[,-1])
@@ -39,14 +39,14 @@ training_indices <- sample(nrow(data_subset_deciduous), nrow(data_subset_deciduo
 training_data_deciduous <- data_subset_deciduous[training_indices, ]
 testing_data_deciduous <- data_subset_deciduous[-training_indices, ]
 
-RF_deciduous_training_result <- ranger(data = training_data_deciduous, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_deciduous_training_result <- ranger(data = training_data_deciduous, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                               write.forest = T)
 RF_deciduous_predict_result <- predict(RF_deciduous_training_result, testing_data_deciduous[,-1])
 
 # evaluate accuracy, in this example, R is used. We can also use other metrics to estimate the regression accuracy.
 R_deciduous <- cor(testing_data_deciduous$vulner, RF_deciduous_predict_result$predictions)
 
-RF_deciduous_result <- ranger(data = data_subset_deciduous, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_deciduous_result <- ranger(data = data_subset_deciduous, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                                        write.forest = T)
 pd_deciduous <- partial_dependence(fit = RF_deciduous_result, vars = c('CO2', 'pre_summer', 'tmp_summer', 
        'rad_summer', 'VPD_summer', 'SOS', 'kNDVI_spring', 'biodiv','AI'), data = data_subset_deciduous[,-1])
@@ -60,14 +60,14 @@ training_indices <- sample(nrow(data_subset_savannas), nrow(data_subset_savannas
 training_data_savannas <- data_subset_savannas[training_indices, ]
 testing_data_savannas <- data_subset_savannas[-training_indices, ]
 
-RF_savannas_training_result <- ranger(data = training_data_savannas, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_savannas_training_result <- ranger(data = training_data_savannas, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                               write.forest = T)
 RF_savannas_predict_result <- predict(RF_savannas_training_result, testing_data_savannas[,-1])
 
 # evaluate accuracy, in this example, R is used. We can also use other metrics to estimate the regression accuracy.
 R_savannas <- cor(testing_data_savannas$vulner, RF_savannas_predict_result$predictions)
 
-RF_savannas_result <- ranger(data = data_subset_savannas, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_savannas_result <- ranger(data = data_subset_savannas, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                                       write.forest = T)
 pd_savannas <- partial_dependence(fit = RF_savannas_result, vars = c('CO2', 'pre_summer', 'tmp_summer', 
                 'rad_summer', 'VPD_summer', 'SOS', 'kNDVI_spring', 'biodiv','AI'), data = data_subset_savannas[,-1])
@@ -81,14 +81,14 @@ training_indices <- sample(nrow(data_subset_shrubs), nrow(data_subset_shrubs) * 
 training_data_shrubs <- data_subset_shrubs[training_indices, ]
 testing_data_shrubs <- data_subset_shrubs[-training_indices, ]
 
-RF_shrubs_training_result <- ranger(data = training_data_shrubs, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_shrubs_training_result <- ranger(data = training_data_shrubs, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                               write.forest = T)
 RF_shrubs_predict_result <- predict(RF_shrubs_training_result, testing_data_shrubs[,-1])
 
 # evaluate accuracy, in this example, R is used. We can also use other metrics to estimate the regression accuracy.
 R_shrubs <- cor(testing_data_shrubs$vulner, RF_shrubs_predict_result$predictions)
 
-RF_shrubs_result <- ranger(data = data_subset_shrubs, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_shrubs_result <- ranger(data = data_subset_shrubs, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                                     write.forest = T)
 pd_shrubs <- partial_dependence(fit = RF_shrubs_result, vars = c('CO2', 'pre_summer', 'tmp_summer', 
                 'rad_summer', 'VPD_summer', 'SOS', 'kNDVI_spring', 'biodiv','AI'), data = data_subset_shrubs[,-1])
@@ -102,14 +102,14 @@ training_indices <- sample(nrow(data_subset_grass), nrow(data_subset_grass) * 0.
 training_data_grass <- data_subset_grass[training_indices, ]
 testing_data_grass <- data_subset_grass[-training_indices, ]
 
-RF_grass_training_result <- ranger(data = training_data_grass, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_grass_training_result <- ranger(data = training_data_grass, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                               write.forest = T) 
 RF_grass_predict_result <- predict(RF_grass_training_result, testing_data_grass[,-1])
 
 # evaluate accuracy, in this example, R is used. We can also use other metrics to estimate the regression accuracy.
 R_grass <- cor(testing_data_grass$vulner, RF_grass_predict_result$predictions)
 
-RF_grass_result <- ranger(data = data_subset_grass, formula = vulner~., importance = 'permutation', num.trees = 500, oob.error = T, 
+RF_grass_result <- ranger(data = data_subset_grass, formula = vulner~., importance = 'impurity', num.trees = 500, oob.error = T, 
                           write.forest = T)
 pd_grass <- partial_dependence(fit = RF_grass_result, vars = c('CO2', 'pre_summer', 'tmp_summer', 
              'rad_summer', 'VPD_summer', 'SOS', 'kNDVI_spring', 'biodiv','AI'), data = data_subset_grass[,-1])
